@@ -3,9 +3,32 @@ import preprocessor,helper
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+# Set page configuration for better mobile view
+st.set_page_config(page_title="WhatsApp Chat Analyzer", layout="wide", initial_sidebar_state="expanded")
 
+# Main page title
+st.title("WhatsApp Chat Analyzer")
 
-st.sidebar.title("whatsapp chat analyzer")
+# Instructions for extracting WhatsApp chat files
+with st.expander("How to extract WhatsApp chat for analysis", expanded=True):
+    st.markdown("""
+    ### For Android:
+    1. Open WhatsApp > Go to the chat you want to analyze
+    2. Click three dots on top right of the chat
+    3. Press 'More' > 'Export chat'
+    4. Choose 'Without Media'
+    5. Extract the ZIP file if needed
+    
+    ### For iPhone:
+    1. Open WhatsApp > Go to the chat you want to analyze
+    2. Tap on the contact/group name at the top
+    3. Scroll down and tap 'Export Chat'
+    4. Choose 'Without Media'
+    5. Extract the ZIP file if needed
+    """)
+
+# Sidebar configuration
+st.sidebar.title("WhatsApp Chat Analyzer")
 
 Phone_type = st.sidebar.radio(
         "Select your phone type",
@@ -15,7 +38,17 @@ st.sidebar.title(Phone_type)
 
 
 
-uploaded_file = st.sidebar.file_uploader("Choose a file")
+# Add file upload instructions in main area for mobile users
+st.markdown("### Upload your WhatsApp chat file (.txt) in the sidebar")
+st.markdown("If you're on mobile, tap the '>' icon at the top left to open the sidebar")
+
+# Add a prominent button for mobile users
+if st.button("Open Sidebar"):
+    st.markdown("<style>div.row-widget.stButton > button {display: none;}</style>", unsafe_allow_html=True)
+    st.sidebar.markdown("### 👈 Please upload your file here")
+
+# File uploader in sidebar
+uploaded_file = st.sidebar.file_uploader("Choose a WhatsApp chat file (.txt)")
 if uploaded_file is not None:
     bytes_data = uploaded_file.getvalue()
     data=bytes_data.decode("utf-8")
