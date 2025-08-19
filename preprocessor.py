@@ -7,9 +7,9 @@ def preprocess(data,phone_type):
     
     
     if phone_type=='Android':
-        pattern="\d{1,2}\/\d{1,2}\/\d{2},\s\d{1,2}:\d{2}\s(?:AM|PM)\s-\s"
+        pattern=r"\d{1,2}/\d{1,2}/\d{2},\s\d{1,2}:\d{2}\s(?:AM|PM)\s-\s"
     if phone_type=='Iphone':
-        pattern="\[\d{2}\/\d{2}\/\d{2},\s\d{1,2}:\d{2}:\d{2}\s(?:AM|PM)\]\s"
+        pattern=r"\[\d{2}/\d{2}/\d{2},\s\d{1,2}:\d{2}:\d{2}\s(?:AM|PM)\]\s"
     message=re.split(pattern,data)[2:]
     dates=re.findall(pattern,data)[1:]
 
@@ -24,7 +24,7 @@ def preprocess(data,phone_type):
     users=[]
     message=[]
     for message1 in df['user_message']:
-        entry=re.split('([\w\W]+?):\s', message1)
+        entry=re.split(r'([\w\W]+?):\s', message1)
         if entry[1:]:
             users.append(entry[1])
             message.append(entry[2])
